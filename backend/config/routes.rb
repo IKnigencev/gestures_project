@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: "kabinet/main_page#index"
-  get "/", to: "welcome#index"
+  get "/", to: "kabinet/main_page#index"
 
   scope :auth do
     post "/sign_in", to: "users#sign_in"

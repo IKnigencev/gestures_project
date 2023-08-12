@@ -10,6 +10,4 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, confirmation: true
   validates :password_confirmation, presence: true
-
-  has_many :lessons, class_name: "Lesson"
 end

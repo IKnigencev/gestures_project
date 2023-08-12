@@ -2,13 +2,14 @@
 
 ##
 # Основная страница кабинета
-class Kabinet::MainPageController < KabinetController
+class Kabinet::LessonController < KabinetController
   include UserData
-  LESSON_PARAM = %i[id title description priority_index].freeze
+  LESSON_PARAM = %i[title description priority_index]
 
   ##
   # Подгрузка данных, главная страница
   def index
+    @current_user = User.first
     @active_lessons_count = 0
     render json: {
       lessons: user_lessons,
@@ -20,32 +21,16 @@ class Kabinet::MainPageController < KabinetController
   private
     def user_lessons
       return @user_lessons if @user_lessons.present?
-      return [] if all_lessons.blank?
 
       @user_lessons = all_lessons.map do |lesson|
         active = lesson.access_users.split(",").include?(current_user.id.to_s)
         @active_lessons_count += 1 if active
         hash = lesson.slice(*LESSON_PARAM)
-        current_step = progress_by_lesson(lesson.id)
-        steps = all_steps(lesson.id)
         hash[:active] = active
-        hash[:all_step] = steps.count
-        hash[:current_step] = current_step
-        hash[:step_id] = current_step_id(steps, current_step)
+        hash[:all_step] = StepLesson.where(lesson_id: lesson.id).count
+        hash[:current_step] = progress_by_lesson(lesson.id)
         hash
       end.compact
-    end
-
-    def current_step_id(steps, priority_index)
-      if priority_index.blank?
-        steps.find_by(priority_index: 1)&.id
-      else
-        steps.find_by(priority_index: priority_index).id
-      end
-    end
-
-    def all_steps(lesson_id)
-      @all_steps = StepLesson.where(lesson_id: lesson_id)
     end
 
     def all_lessons
@@ -60,6 +45,6 @@ class Kabinet::MainPageController < KabinetController
     end
 
     def progress_for_user
-      @progress_for_user ||= get_progress_user(current_user.id)
+      @progress_for_user ||= JSON.parse(get_progress_user(current_user.id)) || [{}]
     end
 end

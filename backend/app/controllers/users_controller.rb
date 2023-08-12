@@ -3,7 +3,7 @@
 class UsersController < KabinetController
   attr_reader :current_user
 
-  skip_before_action :authenticate_request, only: %i[index create]
+  skip_before_action :authenticate_request, only: %i[sign_in create]
 
   ##
   # Авторизация пользователя

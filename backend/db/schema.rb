@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_12_141336) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_12_173307) do
+  create_table "lessons", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "priority_index"
+    t.string "access_users", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "steps_lessons", force: :cascade do |t|
+    t.integer "lesson_id", null: false
+    t.string "title"
+    t.string "answer"
+    t.string "question"
+    t.integer "priority_index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_steps_lessons_on_lesson_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
