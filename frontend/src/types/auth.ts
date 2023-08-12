@@ -11,16 +11,15 @@ export type TRegistrationForm = {
 
 export type UserData = {
     email: string,
-    name: string
 }
 
 export type TLoginResponse = {
-    accessToken: string,
+    access_token: string,
     userData: UserData
 }
 
 export type TRegistrationResponse = {
-    accessToken: string,
+    access_token: string,
     userData: UserData
 }
 

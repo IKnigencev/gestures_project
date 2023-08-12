@@ -5,7 +5,6 @@ import {AuthService} from "../services/auth";
 
 export type TUserStore = {
     data: {
-        name: string,
         email: string
     } | null
     error: TLoginError| TRegistrationError | null

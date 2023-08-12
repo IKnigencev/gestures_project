@@ -53,7 +53,8 @@ export const Registration = () => {
                     value={values.password_confirmation}
                     onChange={handleChange}
                     fullWidth
-                    error={Boolean(error)}
+                    error={Boolean(error && error.password)}
+                    helperText={error && error.password ? error.password : ''}
                 />
                 <Button type={'submit'} variant={'contained'} fullWidth>
                     Sign up
