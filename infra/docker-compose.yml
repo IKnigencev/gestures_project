@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  db:
+    restart: always
+    image: postgres:14.1-alpine
+    volumes:
+      - db_value:/var/lib/postgresql/data/:rw
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    container_name: db_postgres
+  redis:
+    image: "redis:7-alpine"
+    ports:
+      - 6379:6379
+  web:
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/app:cached
+      - gem_cache:/gems
+    build: ../backend
+    ports:
+      - 3000:3000
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_PORT: 3318
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+
+volumes:
+  gem_cache:
+  db_value:
