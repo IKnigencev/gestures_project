@@ -11,57 +11,72 @@ const OPTIONS: RecordOptions = {
 	frameRate: 60
 }
 
+enum RecordStatuses {
+	NONE,
+	START,
+	RECORDING,
+	RECORDED,
+	CLOSED
+}
+
 export const TestPage = () => {
+	const [recordStatus, setRecordStatus] = React.useState(RecordStatuses.NONE)
 	const recordWebcam = useRecordWebcam(OPTIONS)
 	const [open, setOpen] = React.useState(false)
 	const handleOpen = () => {
 		recordWebcam.open()
 		setOpen(true)
+		setRecordStatus(RecordStatuses.START)
 	}
 
 	const handleStart = () => {
 		recordWebcam.start()
+		setRecordStatus(RecordStatuses.RECORDING)
 	}
 
-	const handleClose = () => {
+	const handleStop = () => {
 		recordWebcam.stop()
 		setOpen(false)
-		if (recordWebcam.status === 'RECORDING') {
-			recordWebcam.close()
-		}
+		setRecordStatus(RecordStatuses.RECORDED)
 	}
 
-	const handleDownload = () => {
-		recordWebcam.download()
+	const handleSave = async () => {
+		const blow = await recordWebcam.getRecording()
+		// recordWebcam.download()
 		recordWebcam.close()
+		setRecordStatus(RecordStatuses.CLOSED)
 	}
 
 	return (
 		<Container maxWidth={'lg'}>
 			<div className={styles.container}>
-				{recordWebcam.status !== 'PREVIEW' &&
-					recordWebcam.status !== 'CLOSED' && (
-						<Modal
-							open={open}
-							onClose={() => {
-								setOpen(false)
-							}}
-						>
-							<Box className={styles.modal__container}>
-								<video
-									className={styles.modal__video}
-									ref={recordWebcam.webcamRef}
-									autoPlay
-									muted
-								/>
-								{/* { recordWebcam.status === '' <Button onClick={handleStart}>Начать</Button>} */}
-								<Button onClick={handleStart}>Остановить</Button>
-							</Box>
-						</Modal>
-					)}
-				<Button onClick={handleOpen}>Записать видео</Button>
-				<Button onClick={handleClose}>Закрыть</Button>
-				<Button onClick={handleDownload}></Button>
+				<Modal
+					open={open}
+					onClose={() => {
+						setOpen(false)
+						recordWebcam.stop()
+						recordWebcam.close()
+					}}
+				>
+					<Box className={styles.modal__container}>
+						<video
+							className={styles.modal__video}
+							ref={recordWebcam.webcamRef}
+							autoPlay
+							muted
+						/>
+						{recordStatus === RecordStatuses.START && (
+							<Button onClick={handleStart}>Начать</Button>
+						)}
+						{recordStatus === RecordStatuses.RECORDING && (
+							<Button onClick={handleStop}>Остановить</Button>
+						)}
+					</Box>
+				</Modal>
+				<Button onClick={handleOpen}>Записать</Button>
+				{recordStatus === RecordStatuses.RECORDED && (
+					<Button onClick={handleSave}>Отправить</Button>
+				)}
 			</div>
 		</Container>
 	)
