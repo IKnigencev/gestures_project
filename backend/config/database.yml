@@ -1,11 +1,7 @@
 default: &default
   pool: 10
-  encoding: unicode
-  host: <%= ENV["DB_HOST"] %>
-  username: postgres
-  password: postgres
-  port: 5432
-  adapter: postgresql
+  database: db/development.sqlite3
+  adapter: sqlite3
 
 development:
   <<: *default

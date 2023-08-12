@@ -1,22 +1,23 @@
-import './app.module.css'
+import styles from './app.module.css'
 import { Route, Routes } from 'react-router-dom'
 import { Login } from '../pages/login'
-import { ProfilePage } from '../pages/profile'
-import { BaseComponent } from '../pages/base'
-import { MainPage } from '../pages/main/intex'
-import { TestPage } from '../pages/test'
+import { Registration } from '../pages/registration'
+import { Container } from '@mui/material'
 
 export const App = () => {
-	return (
+	return <Container className={styles.container} maxWidth={'lg'}>
 		<Routes>
-			<Route path={'login'} element={<Login />} />
+			<Route path={'/'} element={<ProtectedRouteElement element={<div>home <button onClick={() => logout()}>logout</button></div>}/>}/>
+			<Route path={'login'} element={<ProtectedRouteElement guest element={<Login/>}/>}/>
+			<Route path={'registration'} element={<ProtectedRouteElement guest element={<Registration/>}/>}/>
 			<Route path={''} element={<BaseComponent />}>
 				<Route path={'profile'} element={<ProfilePage />} />
 				<Route path={'main'} element={<MainPage />} />
 				<Route path={'test'} element={<TestPage />} />
 			</Route>
 			<Route path={'profile'} element={<ProfilePage />} />
-			<Route path={'registration'} element={<div>registration</div>} />
-		</Routes>
-	)
+			<Route path={'/*'} element={<div>NOT FOUND</div>}/>
+		</Routes> : <CircularProgress />}
+	</Container>)
+
 }
