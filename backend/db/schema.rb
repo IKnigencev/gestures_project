@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_12_173307) do
     t.string "answer"
     t.string "question"
     t.integer "priority_index"
+    t.string "type_question", default: "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "index_steps_lessons_on_lesson_id"

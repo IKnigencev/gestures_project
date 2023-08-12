@@ -21,9 +21,9 @@ def create_step_lessons
     { title: "title", answer: "description", question: "question", priority_index: 1, lesson_id: Lesson.find_by(priority_index: 1).id },
     { title: "title", answer: "description", question: "question", priority_index: 2, lesson_id: Lesson.find_by(priority_index: 1).id },
     { title: "title", answer: "description", question: "question", priority_index: 3, lesson_id: Lesson.find_by(priority_index: 1).id },
-    { title: "title", answer: "description", question: "question", priority_index: 1, lesson_id: Lesson.find_by(priority_index: 2).id },
-    { title: "title", answer: "description", question: "question", priority_index: 2, lesson_id: Lesson.find_by(priority_index: 2).id },
-    { title: "title", answer: "description", question: "question", priority_index: 3, lesson_id: Lesson.find_by(priority_index: 2).id }
+    { title: "title", answer: "description", question: "question", priority_index: 1, type_question: "video", lesson_id: Lesson.find_by(priority_index: 2).id },
+    { title: "title", answer: "description", question: "question", priority_index: 2, type_question: "video", lesson_id: Lesson.find_by(priority_index: 2).id },
+    { title: "title", answer: "description", question: "question", priority_index: 3, type_question: "video", lesson_id: Lesson.find_by(priority_index: 2).id }
   ]
   @step_lessons = StepLesson.create(step_lessons)
 end

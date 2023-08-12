@@ -9,6 +9,7 @@ fi
 #git config --global http.sslverify false
 bundle check || bundle install
 
+pip install -r requirements.txt
 
 RAILS_ENV=development rails db:create
 RAILS_ENV=development rails db:migrate

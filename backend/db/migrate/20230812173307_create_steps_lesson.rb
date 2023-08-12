@@ -6,6 +6,7 @@ class CreateStepsLesson < ActiveRecord::Migration[7.0]
       t.string :answer
       t.string :question
       t.integer :priority_index
+      t.string :type_question, default: "text"
 
       t.timestamps
     end
