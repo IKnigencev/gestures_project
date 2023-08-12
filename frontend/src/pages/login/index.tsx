@@ -1,6 +1,7 @@
 import styles from './login.module.css'
-import {Avatar, Button, Container, Link, TextField, Typography} from "@mui/material";
+import {Avatar, Button, Container, Link as LinkComponent, TextField, Typography} from "@mui/material";
 import {LockOutlined} from "@mui/icons-material";
+import {Link} from "react-router-dom";
 
 export const Login = () => {
     return <Container className={styles.container} maxWidth={'xs'}>
@@ -26,7 +27,9 @@ export const Login = () => {
                     </Button>
                 </form>
                 <div className={styles.links}>
-                    <Link children={'Not registered ? Sign Up'} />
+                    <Link to={'/registration'}>
+                        <LinkComponent children={'Not registered ? Sign Up'} />
+                    </Link>
                 </div>
             </div>
         </Container>
