@@ -1,34 +1,18 @@
-FROM ruby:3.1.1-alpine
+FROM ruby:3.1.2
 
-RUN apk add --update --no-cache \
-      binutils-gold \
-      build-base \
-      curl \
-      file \
-      g++ \
-      gcc \
-      git \
-      less \
-      libstdc++ \
-      libffi-dev \
-      libc-dev \ 
-      linux-headers \
-      libxml2-dev \
-      libxslt-dev \
-      libgcrypt-dev \
-      make \
-      netcat-openbsd \
-      openssl \
-      pkgconfig \
-      postgresql-dev \
-      tzdata
+
+RUN apt-get update && apt-get install -y -f libssl-dev libreadline-dev wget && apt-get clean
+RUN apt-get update && apt-get install -y -f postgresql postgresql-contrib libpq-dev apt-transport-https ca-certificates && apt-get clean
+
 WORKDIR /app
-COPY Gemfile /Gemfile
-# COPY Gemfile.lock /Gemfile.lock
-RUN gem update --system && bundle install
-COPY . /
 
-COPY docker-entrypoint.sh /
+ADD Gemfile /app/
+COPY Gemfile ./
+ADD . /app
 
+
+EXPOSE 3000
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
+
+#CMD ["sh /app/docker-entrypoint.sh"]
