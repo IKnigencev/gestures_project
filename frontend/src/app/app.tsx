@@ -1,7 +1,6 @@
 import { ProfilePage } from '../pages/profile'
 import './app.css'
 import { Route, Routes } from 'react-router-dom'
-import { Route, Routes } from 'react-router-dom'
 import { Login } from '../pages/login'
 
 export const App = () => {

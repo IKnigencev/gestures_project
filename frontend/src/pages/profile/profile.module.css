@@ -1,7 +1,14 @@
 .profile {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	min-height: 100vh;
+	padding: 24px;
+}
+
+.profile__avatar {
+	align-self: center;
+}
+
+.profile__avatar_container {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 16px;
 }
