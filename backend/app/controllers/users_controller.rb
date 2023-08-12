@@ -8,6 +8,8 @@ class UsersController < KabinetController
   ##
   # Авторизация пользователя
   def sign_in
+    render json: { email: "Укажите email" }, status: :unprocessable_entity && return if sign_in_params[:email].blank?
+
     @user = User.find_by(email: sign_in_params[:email])
     if @user&.authenticate(sign_in_params[:password])
       token = jwt_encode({ user_id: @user.id })
@@ -18,9 +20,9 @@ class UsersController < KabinetController
           expires: 30.minutes.from_now
         }
       )
-      render json: { refresh_token: token }, status: :ok
+      render json: { access_token: token, email: @user.email }, status: :ok
     else
-      render json: [{ password: "Неверный пароль" }], status: :unprocessable_entity
+      render json: { password: "Неверный пароль" }, status: :unprocessable_entity
     end
   rescue Exception => e
     render_errors
@@ -40,7 +42,7 @@ class UsersController < KabinetController
           expires: 30.minutes.from_now
         }
       )
-      render json: { refresh_token: token }, status: :created
+      render json: { access_token: token }, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end

@@ -8,7 +8,7 @@ class KabinetController < ApplicationController
   before_action :authenticate_request
 
   def render_errors
-    render json: [{ error: "Неизвестная ошибка" }], status: :internal_server_error
+    render json: { error: "Неизвестная ошибка" }, status: :internal_server_error
   end
 
   private
