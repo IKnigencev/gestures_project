@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<CssBaseline/>
-			<Container maxWidth={'lg'}>
+			<Container className={'container'} maxWidth={'lg'}>
 				<App />
 			</Container>
 		</BrowserRouter>
