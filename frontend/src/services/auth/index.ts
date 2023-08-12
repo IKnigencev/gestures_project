@@ -29,4 +29,20 @@ export class AuthService{
             return {error: isAxiosError(e) && e.response ? e.response.data : <AxiosError>{}, data: null}
         }
     }
+
+    static async checkAuth(): Promise<{ok: true, data: TLoginResponse } | {ok: false, data: null }>{
+        try{
+            const {data} = await apiAuthInstance.get<TLoginResponse>('/get_me', {headers:{
+                Authorization: `Bearer ${TokenService.getToken()}`
+            }})
+            return {ok: true, data}
+        }
+        catch (error){
+            return {ok: false, data: null}
+        }
+    }
+
+    static async logout(): void{
+        TokenService.deleteToken()
+    }
 }

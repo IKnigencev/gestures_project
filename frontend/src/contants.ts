@@ -14,4 +14,5 @@ export const apiAuthInstance = axios.create({
     headers: {
         Accept: 'application/json',
     },
+    // withCredentials: true
 })

@@ -14,8 +14,9 @@ export type TUserStore = {
 type Actions = {
     register: (form: TRegistrationForm) => Promise<void>
     logout: () => void
-    login: (user: any) => Promise<void>
+    login: (form: TLoginForm) => Promise<void>
     cleanErrors: () => void
+    checkAuth: () => void
 }
 
 const initialState: TUserStore = {
@@ -43,7 +44,19 @@ export const useUserStore = create<TUserStore & Actions>()(
             else
                 set((state) => ({...state, error: error, status: STATUS.failure}))
         },
-        logout: () => {},
+        logout: () => {
+            AuthService.logout()
+            set(() => ({...initialState, status: STATUS.success}))
+        },
         cleanErrors: ()  => {},
+        checkAuth: async () => {
+            set(state => ({...state, status: STATUS.request}))
+            const {data, ok} = await AuthService.checkAuth()
+            console.log(ok)
+            if(ok)
+                set((state) => ({...state, data: data, error: null, status: STATUS.success}))
+            else
+                set((state) => ({...state, status: STATUS.failure}))
+        },
     })),
 )
