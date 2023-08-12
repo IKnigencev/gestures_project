@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Login } from '../pages/login'
 import { ProfilePage } from '../pages/profile'
 import { BaseComponent } from '../pages/base'
+import { MainPage } from '../pages/main/intex'
 
 export const App = () => {
 	return (
@@ -10,6 +11,7 @@ export const App = () => {
 			<Route path={'login'} element={<Login />} />
 			<Route path={''} element={<BaseComponent />}>
 				<Route path={'profile'} element={<ProfilePage />} />
+				<Route path={'main'} element={<MainPage />} />
 			</Route>
 			<Route path={'profile'} element={<ProfilePage />} />
 			<Route path={'registration'} element={<div>registration</div>} />

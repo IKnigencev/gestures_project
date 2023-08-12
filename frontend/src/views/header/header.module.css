@@ -1,6 +1,7 @@
 .header {
 	padding: 16px 0;
 	background-color: #03a9f4;
+	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.5);
 }
 
 .header__container {
@@ -14,10 +15,15 @@
 	align-items: center;
 }
 
-.navigation_logout {
+.link {
 	display: flex;
 	gap: 4px;
 	align-items: center;
 	text-decoration: none;
-	color: black;
+	color: white;
+}
+
+.header__navigation {
+	display: flex;
+	gap: 8px;
 }
