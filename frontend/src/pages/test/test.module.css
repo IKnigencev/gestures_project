@@ -1,0 +1,18 @@
+.container {
+	padding: 16px;
+}
+
+.modal__video {
+	border-top-left-radius: 16px;
+	border-top-right-radius: 16px;
+}
+
+.modal__container {
+	background-color: white;
+	border-radius: 16px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 24;
+}

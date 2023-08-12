@@ -4,6 +4,7 @@ import { Login } from '../pages/login'
 import { ProfilePage } from '../pages/profile'
 import { BaseComponent } from '../pages/base'
 import { MainPage } from '../pages/main/intex'
+import { TestPage } from '../pages/test'
 
 export const App = () => {
 	return (
@@ -12,6 +13,7 @@ export const App = () => {
 			<Route path={''} element={<BaseComponent />}>
 				<Route path={'profile'} element={<ProfilePage />} />
 				<Route path={'main'} element={<MainPage />} />
+				<Route path={'test'} element={<TestPage />} />
 			</Route>
 			<Route path={'profile'} element={<ProfilePage />} />
 			<Route path={'registration'} element={<div>registration</div>} />
