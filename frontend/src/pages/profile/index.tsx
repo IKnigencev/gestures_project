@@ -10,7 +10,7 @@ export const ProfilePage: FC = () => {
 					textAlign={'center'}
 					mb={2}
 					sx={{ fontWeight: 600 }}
-					variant='h4'
+					variant='h5'
 					component='h2'
 				>
 					Профиль
@@ -19,11 +19,11 @@ export const ProfilePage: FC = () => {
 					<Avatar sx={{ width: 150, height: 150 }} alt='Avatar' src='' />
 				</div>
 				<Divider />
-				<Typography sx={{ fontSize: 24 }}>Имя: Егор</Typography>
+				<Typography sx={{ fontSize: 16 }}>Имя: Егор</Typography>
 				<Divider />
-				<Typography sx={{ fontSize: 24 }}>Фамилия: Рязанов</Typography>
+				<Typography sx={{ fontSize: 16 }}>Фамилия: Рязанов</Typography>
 				<Divider />
-				<Typography sx={{ fontSize: 24 }}>Почта: example@gmail.com</Typography>
+				<Typography sx={{ fontSize: 16 }}>Почта: example@gmail.com</Typography>
 				<Divider />
 			</div>
 		</Container>

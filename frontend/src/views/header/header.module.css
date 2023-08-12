@@ -1,0 +1,23 @@
+.header {
+	padding: 16px 0;
+	background-color: #03a9f4;
+}
+
+.header__container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.header__navigation_logout {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.navigation_logout {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+	text-decoration: none;
+	color: black;
+}
