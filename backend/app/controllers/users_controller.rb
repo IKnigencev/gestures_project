@@ -7,7 +7,7 @@ class UsersController < KabinetController
 
   ##
   # Авторизация пользователя
-  def index
+  def sign_in
     @user = User.find_by(email: sign_in_params[:email])
     if @user&.authenticate(sign_in_params[:password])
       token = jwt_encode({ user_id: @user.id })
@@ -42,7 +42,7 @@ class UsersController < KabinetController
       )
       render json: { refresh_token: token }, status: :created
     else
-      render json: @user.errors.messages, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
   rescue Exception => e
     render_errors
