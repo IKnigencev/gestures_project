@@ -17,9 +17,9 @@
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-record-webcam": "^0.0.18",
     "react-router-dom": "^6.15.0",
-    "zustand": "^4.4.1",
-    "react-record-webcam": "^0.0.18"
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
