@@ -31,7 +31,7 @@ export const useUserStore = create<TUserStore & Actions>()(
                 set(state => ({...state, status: STATUS.request}))
                 const {data, error} = await AuthService.register(form)
                 if(!error)
-                    set((state) => ({...state, data: data?.userData, error: null, status: STATUS.success}))
+                    set((state) => ({...state, data: data, error: null, status: STATUS.success}))
                 else
                     set((state) => ({...state, error: error, status: STATUS.failure}))
         },
@@ -39,7 +39,7 @@ export const useUserStore = create<TUserStore & Actions>()(
             set(state => ({...state, status: STATUS.request}))
             const {data, error} = await AuthService.login(form)
             if(!error)
-                set((state) => ({...state, data: data?.userData, error: null, status: STATUS.success}))
+                set((state) => ({...state, data: data, error: null, status: STATUS.success}))
             else
                 set((state) => ({...state, error: error, status: STATUS.failure}))
         },

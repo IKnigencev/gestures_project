@@ -15,7 +15,7 @@ export class AuthService{
         try{
             const {data} = await apiAuthInstance.post<TLoginResponse>('/sign_in',form)
             TokenService.setToken(data.access_token)
-            return {error: null, data}
+            return {error: null, data: data}
         } catch (e: AxiosError | any) {
             return {error: isAxiosError(e) && e.response ? e.response.data : <AxiosError>{}, data: null}
         }

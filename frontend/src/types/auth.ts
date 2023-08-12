@@ -15,12 +15,12 @@ export type UserData = {
 
 export type TLoginResponse = {
     access_token: string,
-    userData: UserData
+    email: string
 }
 
 export type TRegistrationResponse = {
     access_token: string,
-    userData: UserData
+    email: string
 }
 
 export enum STATUS {
