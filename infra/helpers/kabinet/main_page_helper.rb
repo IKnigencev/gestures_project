@@ -1,0 +1,2 @@
+module Kabinet::MainPageHelper
+end

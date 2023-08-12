@@ -17,6 +17,7 @@ services:
     ports:
       - 6379:6379
   web:
+    restart: always
     depends_on:
       - db
       - redis
