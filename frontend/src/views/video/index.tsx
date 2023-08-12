@@ -1,4 +1,4 @@
-import styles from './test.module.css'
+import styles from './video.module.css'
 import React from 'react'
 import { useRecordWebcam, RecordOptions } from 'react-record-webcam'
 import { Container, Button, Modal, Box } from '@mui/material'
@@ -19,7 +19,7 @@ enum RecordStatuses {
 	CLOSED
 }
 
-export const TestPage = () => {
+export const VideoComponent = () => {
 	const [recordStatus, setRecordStatus] = React.useState(RecordStatuses.NONE)
 	const recordWebcam = useRecordWebcam(OPTIONS)
 	const [open, setOpen] = React.useState(false)

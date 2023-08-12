@@ -10,7 +10,8 @@ import { statusCheck } from '../helpers'
 import { BaseComponent } from '../pages/base/index.tsx'
 import { ProfilePage } from '../pages/profile'
 import { MainPage } from '../pages/main/intex.tsx'
-import { TestPage } from '../pages/test'
+import { TestPage } from '../views/video/index.tsx'
+import { QuestionPage } from '../pages/question/index.tsx'
 
 export const App = () => {
 	const { checkAuth, status, logout } = useUserStore()
@@ -44,7 +45,7 @@ export const App = () => {
 					<Route path={''} element={<BaseComponent />}>
 						<Route path={'profile'} element={<ProfilePage />} />
 						<Route path={'main'} element={<MainPage />} />
-						<Route path={'test'} element={<TestPage />} />
+						<Route path={'question'} element={<QuestionPage />} />
 					</Route>
 					<Route path={'/*'} element={<div>NOT FOUND</div>} />
 				</Routes>
