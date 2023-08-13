@@ -14,7 +14,14 @@ module UserData
   end
 
   def save_progress_user(user, lesson, priority_index, is_finish: false)
-    hash_data = { lesson_id: lesson.id, last_step: priority_index, is_finish: is_finish }
-    $redis.set(format(STEPS_LESSON_PROGRESS, user_id: user.id), hash_data.to_json)
+    before_data = get_progress_user(user.id)
+    if before_data.blank?
+      hash_data = [{ lesson_id: lesson.id, last_step: priority_index, is_finish: is_finish }]
+      $redis.set(format(STEPS_LESSON_PROGRESS, user_id: user.id), hash_data.to_json)
+    else
+      hash_data = { lesson_id: lesson.id, last_step: priority_index, is_finish: is_finish }
+      before_data << hash_data
+      $redis.set(format(STEPS_LESSON_PROGRESS, user_id: user.id), before_data.to_json)
+    end
   end
 end

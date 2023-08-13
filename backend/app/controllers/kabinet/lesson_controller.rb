@@ -5,9 +5,14 @@
 class Kabinet::LessonController < KabinetController
   class NotFoundErrors < StandardError; end
   include UserData
+  include ActiveStorage::SetCurrent
   PATH_PYTHON = "/app/services/python_script/"
 
   before_action :validate_access
+  before_action do
+    ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
+  end
+  
 
   ##
   # Подгрузка данных, странца вопроса
@@ -47,12 +52,30 @@ class Kabinet::LessonController < KabinetController
 
     def equestion_data(type)
       hash = {
+        answered: answered?,
         next_id: next_step&.id,
         prev_id: prev_step&.id,
         **@step_lesson.slice(:title, :question, :type_question)
       }
-      hash[:image_url] = @step_lesson.image.url if type == :text
+      hash[:image_url] = @step_lesson.image.blob.url if type == :text
       hash
+    end
+
+    def answered?
+      data = proccess_by_lesson
+      return false if data.blank?
+
+      proccess_by_lesson[:last_step].to_i >= @step_lesson.priority_index.to_i
+    end
+
+    def proccess_by_lesson
+      data = get_progress_user(current_user.id)
+      return if data.blank?
+
+      by_lesson = data.find { |d| d[:lesson_id].to_s == @lesson.id.to_s }
+      return if by_lesson.blank?
+
+      by_lesson
     end
 
     def currect_answer?
