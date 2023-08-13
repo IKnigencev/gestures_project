@@ -15,6 +15,8 @@ class Kabinet::MainPageController < KabinetController
       all_lessons_count: all_lessons.count,
       active_lessons_count: @active_lessons_count
     }, status: :ok
+  rescue Exception
+    render json: true, status: :unprocessable_entity
   end
 
   private
