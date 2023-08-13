@@ -10,4 +10,8 @@ export class TokenService{
     static deleteToken() {
         return localStorage.removeItem('accessToken')
     }
+
+    static getAuthorization(){
+        return `Bearer ${localStorage.getItem('accessToken')}`
+    }
 }

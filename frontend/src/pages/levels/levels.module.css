@@ -1,0 +1,122 @@
+.levels{
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    max-width: 65%;
+    flex-grow: 1;
+    row-gap: 30px;
+}
+
+.level{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    width: 50%;
+    overflow: visible;
+}
+
+.image{
+    position: absolute;
+    width: 20%;
+    height: 50%;
+    z-index: 2;
+    & img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+
+
+.block_level{
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.block_level:last-child .image{
+    display: none;
+}
+
+.block_level:nth-child(2n+1){
+    justify-content: flex-start;
+    .image{
+        position: absolute;
+        bottom: -50%;
+        left: 38%;
+        width: 28%;
+        height: 47%;
+        -moz-transform:  rotate(44deg) skew(-2deg, 0deg);
+        -webkit-transform:  rotate(44deg) skew(-2deg, 0deg);
+        -o-transform: rotate(44deg) skew(-2deg, 0deg);
+        -ms-transform: rotate(44deg) skew(-2deg, 0deg);
+        transform: translate(-50%, 50%) rotate(44deg) skew(-2deg, 0deg);
+    }
+}
+
+
+.block_level:nth-child(2n) {
+    justify-content: flex-end;
+    .image {
+        position: absolute;
+        bottom: -80%;
+        left: 47%;
+        width: 28%;
+        height: 47%;
+        -moz-transform: rotate(327deg) skew(-2deg, 0deg);
+        -webkit-transform: rotate(327deg) skew(-2deg, 0deg);
+        -o-transform: rotate(327deg) skew(-2deg, 0deg);
+        -ms-transform: rotate(327deg) skew(-2deg, 0deg);
+        transform: rotate(327deg) skew(-2deg, 0deg);
+    }
+}
+.blocks{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    @media (max-width: 700px) {
+        flex-direction: column-reverse;
+        gap: 20px;
+        .progress{
+            max-width: 100%;
+        }
+        .levels{
+            max-width: 100%;
+        }
+        .image{
+            display: none;
+        }
+    }
+}
+
+.progress{
+    max-width: 30%;
+    flex-grow: 1;
+    height: auto;
+}
+
+.progress_card{
+}
+
+.progress_title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    border-bottom: 1px solid #f0ede5;
+}
+
+.progress_subtitle{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.linear_progress{
+    flex-shrink: 0;
+    min-height: 10px;
+    border-radius: 18px;
+    background-color: green;
+}

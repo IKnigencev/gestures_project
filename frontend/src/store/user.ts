@@ -16,7 +16,7 @@ type Actions = {
     logout: () => void
     login: (form: TLoginForm) => Promise<void>
     cleanErrors: () => void
-    checkAuth: () => void
+    checkAuth: () => Promise<void>
 }
 
 const initialState: TUserStore = {

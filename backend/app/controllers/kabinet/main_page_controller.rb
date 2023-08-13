@@ -17,7 +17,9 @@ class Kabinet::MainPageController < KabinetController
       active_lessons_count: @active_lessons_count,
       finish_lessons_count: @finish_lessons_count
     }, status: :ok
-  rescue Exception
+  rescue Exception => e
+    puts e.inspect
+    puts e.backtrace
     render json: true, status: :unprocessable_entity
   end
 
@@ -28,11 +30,11 @@ class Kabinet::MainPageController < KabinetController
 
       @user_lessons = all_lessons.map do |lesson|
         active = lesson.access_users.split(",").include?(current_user.id.to_s)
-        is_finish = progress_for_user.present? ? progress_for_user[:is_finish] : false
+        is_finish = progress_by_lesson(lesson.id).present? ? progress_by_lesson(lesson.id)[:is_finish] : false
         @active_lessons_count += 1 if active
         @finish_lessons_count += 1 if is_finish
         hash = lesson.slice(*LESSON_PARAM)
-        current_step = progress_by_lesson(lesson.id)
+        current_step = progress_by_lesson(lesson.id).present? ? progress_by_lesson(lesson.id)[:last_step] : nil
         steps = all_steps(lesson.id)
         hash[:active] = active
         hash[:is_finish] = is_finish
@@ -63,7 +65,7 @@ class Kabinet::MainPageController < KabinetController
       data = progress_for_user.find { |saved_data| saved_data[:lesson_id].to_s == lesson_id.to_s }
       return if data.blank?
 
-      data[:last_step]
+      data
     end
 
     def progress_for_user

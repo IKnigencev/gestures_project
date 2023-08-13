@@ -42,7 +42,7 @@ export class AuthService{
         }
     }
 
-    static async logout(): void{
+    static logout(){
         TokenService.deleteToken()
     }
 }
