@@ -96,7 +96,7 @@ class Kabinet::LessonController < KabinetController
     def validate_access
       @lesson = Lesson.find_by(id: params_ids[:id])
       raise NotFoundErrors if @lesson.blank?
-      #raise NotFoundErrors if @lesson.access_users.split(",").exclude?(current_user.id.to_s)
+      raise NotFoundErrors if @lesson.access_users.split(",").exclude?(current_user.id.to_s)
 
       @step_lesson = StepLesson.find_by(id: params_ids[:step_id], lesson_id: @lesson.id)
       return if @step_lesson.present?

@@ -36,6 +36,11 @@ class UsersController < KabinetController
     @user = User.new(sign_up_params)
     if @user.valid?
       @user.save
+      Lesson.where(priority_index: [1, 2]).each do |lesson|
+        access_users = lesson.access_users 
+        access_users << ",#{@user.id}"
+        lesson.update(access_users: access_users)
+      end
       token = jwt_encode({ user_id: @user.id })
       response.set_cookie(
         :jwt,
