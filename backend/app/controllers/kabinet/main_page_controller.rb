@@ -15,6 +15,8 @@ class Kabinet::MainPageController < KabinetController
       all_lessons_count: all_lessons.count,
       active_lessons_count: @active_lessons_count
     }, status: :ok
+  rescue Exception
+    render json: true, status: :unprocessable_entity
   end
 
   private
@@ -29,6 +31,7 @@ class Kabinet::MainPageController < KabinetController
         current_step = progress_by_lesson(lesson.id)
         steps = all_steps(lesson.id)
         hash[:active] = active
+        hash[:is_finish] = progress_for_user.present? ? progress_for_user[:is_finish] : false
         hash[:all_step] = steps.count
         hash[:current_step] = current_step
         hash[:step_id] = current_step_id(steps, current_step)

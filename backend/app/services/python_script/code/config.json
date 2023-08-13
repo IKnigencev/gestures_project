@@ -1,0 +1,6 @@
+{
+    "model": "./app/services/python_script/code/S3D.onnx",
+    "threshold": 0.6,
+    "topk": 1,
+    "class_list": "./app/services/python_script/code/RSL_class_list.txt"
+}
