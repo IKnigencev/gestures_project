@@ -30,11 +30,11 @@ class Kabinet::MainPageController < KabinetController
 
       @user_lessons = all_lessons.map do |lesson|
         active = lesson.access_users.split(",").include?(current_user.id.to_s)
-        is_finish = progress_by_lesson(lesson.id).present? ? progress_by_lesson(lesson.id)[:is_finish] : false
+        is_finish = progress_by_lesson(lesson.id).present? ? progress_by_lesson(lesson.id)["is_finish"] : false
         @active_lessons_count += 1 if active
         @finish_lessons_count += 1 if is_finish
         hash = lesson.slice(*LESSON_PARAM)
-        current_step = progress_by_lesson(lesson.id).present? ? progress_by_lesson(lesson.id)[:last_step] : nil
+        current_step = progress_by_lesson(lesson.id).present? ? progress_by_lesson(lesson.id)["last_step"] : nil
         steps = all_steps(lesson.id)
         hash[:active] = active
         hash[:is_finish] = is_finish

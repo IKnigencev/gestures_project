@@ -25,7 +25,7 @@ class Kabinet::LessonController < KabinetController
   def update
     if currect_answer?
       save_data
-      redner json: { currect: true }, status: :ok
+      render json: { currect: true }, status: :ok
     else
       render json: { currect: false }, status: :unprocessable_entity
     end
@@ -61,21 +61,21 @@ class Kabinet::LessonController < KabinetController
       data = proccess_by_lesson
       return false if data.blank?
 
-      proccess_by_lesson[:last_step].to_i >= @step_lesson.priority_index.to_i
+      proccess_by_lesson["last_step"].to_i >= @step_lesson.priority_index.to_i
     end
 
     def proccess_by_lesson
       data = get_progress_user(current_user.id)
       return if data.blank?
 
-      by_lesson = data.find { |d| d[:lesson_id].to_s == @lesson.id.to_s }
+      by_lesson = data.find { |d| d["lesson_id"].to_s == @lesson.id.to_s }
       return if by_lesson.blank?
 
       by_lesson
     end
 
     def currect_answer?
-      return @step_lesson.answer == params_answer.strip if params_answer[:answer].present?
+      return @step_lesson.answer == params_answer[:answer].strip if params_answer[:answer].present?
       raise NotFoundErrors if params_video[:video].blank?
 
       currect_predict?
