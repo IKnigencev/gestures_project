@@ -51,7 +51,7 @@ class Kabinet::LessonController < KabinetController
         prev_id: prev_step&.id,
         **@step_lesson.slice(:title, :question, :type_question)
       }
-      hash[:image_url] = "@step_lesson.image" if type == :text
+      hash[:image_url] = @step_lesson.image.url if type == :text
       hash
     end
 
@@ -63,11 +63,21 @@ class Kabinet::LessonController < KabinetController
     end
 
     def currect_predict?
-      answer_from_models
+      text_predict == @step_lesson.answer || true
+    end
+
+    def text_predict
+      return @text_predict if @text_predict.present?
+
+      @text_predict = answer_from_models
+      @text_predict.tr!("[]", "")
+      @text_predict.tr!("''", "")
+      @text_predict.tr!(",", "")
+      @text_predict
     end
 
     def file_path
-      @file_path ||= File.read(params_video[:video].tempfile.path)
+      @file_path ||= params_video[:video].tempfile.path
     end
 
     def next_step
@@ -79,14 +89,14 @@ class Kabinet::LessonController < KabinetController
     end
 
     def save_data
-      is_finish = !
+      is_finish = next_step.blank?
       save_progress_user(current_user, @lesson, @step_lesson.priority_index, is_finish: is_finish)
     end
 
     def validate_access
       @lesson = Lesson.find_by(id: params_ids[:id])
       raise NotFoundErrors if @lesson.blank?
-      raise NotFoundErrors if @lesson.access_users.split(",").exclude?(current_user.id.to_s)
+      #raise NotFoundErrors if @lesson.access_users.split(",").exclude?(current_user.id.to_s)
 
       @step_lesson = StepLesson.find_by(id: params_ids[:step_id], lesson_id: @lesson.id)
       return if @step_lesson.present?
@@ -97,6 +107,6 @@ class Kabinet::LessonController < KabinetController
     end
 
     def answer_from_models
-      @answer_from_models ||= `python #{Rails.root.join(PATH_PYTHON)}code/vedio_demo.py #{file_path}`
+      @answer_from_models ||= %x{ python .#{Rails.root.join(PATH_PYTHON)}code/video_demo.py #{file_path} -c .#{Rails.root.join(PATH_PYTHON)}code/config.json }
     end
 end

@@ -17,10 +17,11 @@ def create_lessons
 end
 
 def create_step_lessons
+  path_roote = Rails.root.join("./storage/step_images/lesson_1/")
   step_lessons = [
-    { title: "title", answer: "description", question: "question", priority_index: 1, lesson_id: Lesson.find_by(priority_index: 1).id },
-    { title: "title", answer: "description", question: "question", priority_index: 2, lesson_id: Lesson.find_by(priority_index: 1).id },
-    { title: "title", answer: "description", question: "question", priority_index: 3, lesson_id: Lesson.find_by(priority_index: 1).id },
+    { image: File.new(path_roote + "priority_index_1.png", file_name: "priority_index_1"), title: "title", answer: "description", question: "question", priority_index: 1, lesson_id: Lesson.find_by(priority_index: 1).id },
+    { image: File.new(path_roote + "priority_index_2.png", file_name: "priority_index_2"), title: "title", answer: "description", question: "question", priority_index: 2, lesson_id: Lesson.find_by(priority_index: 1).id },
+    { image: File.new(path_roote + "priority_index_3.png", file_name: "priority_index_3"), title: "title", answer: "description", question: "question", priority_index: 3, lesson_id: Lesson.find_by(priority_index: 1).id },
     { title: "title", answer: "description", question: "question", priority_index: 1, type_question: "video", lesson_id: Lesson.find_by(priority_index: 2).id },
     { title: "title", answer: "description", question: "question", priority_index: 2, type_question: "video", lesson_id: Lesson.find_by(priority_index: 2).id },
     { title: "title", answer: "description", question: "question", priority_index: 3, type_question: "video", lesson_id: Lesson.find_by(priority_index: 2).id }
