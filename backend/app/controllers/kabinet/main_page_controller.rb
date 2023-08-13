@@ -10,10 +10,12 @@ class Kabinet::MainPageController < KabinetController
   # Подгрузка данных, главная страница
   def index
     @active_lessons_count = 0
+    @finish_lessons_count = 0
     render json: {
       lessons: user_lessons,
       all_lessons_count: all_lessons.count,
-      active_lessons_count: @active_lessons_count
+      active_lessons_count: @active_lessons_count,
+      finish_lessons_count: @finish_lessons_count
     }, status: :ok
   rescue Exception
     render json: true, status: :unprocessable_entity
@@ -26,12 +28,14 @@ class Kabinet::MainPageController < KabinetController
 
       @user_lessons = all_lessons.map do |lesson|
         active = lesson.access_users.split(",").include?(current_user.id.to_s)
+        is_finish = progress_for_user.present? ? progress_for_user[:is_finish] : false
         @active_lessons_count += 1 if active
+        @finish_lessons_count += 1 if is_finish
         hash = lesson.slice(*LESSON_PARAM)
         current_step = progress_by_lesson(lesson.id)
         steps = all_steps(lesson.id)
         hash[:active] = active
-        hash[:is_finish] = progress_for_user.present? ? progress_for_user[:is_finish] : false
+        hash[:is_finish] = is_finish
         hash[:all_step] = steps.count
         hash[:current_step] = current_step
         hash[:step_id] = current_step_id(steps, current_step)
