@@ -42,9 +42,12 @@ export const App = () => {
 						path={'registration'}
 						element={<ProtectedRouteElement guest element={<Registration />} />}
 					/>
+					<Route
+						path={'main'}
+						element={<ProtectedRouteElement guest element={<MainPage />} />}
+					/>
 					<Route path={''} element={<BaseComponent />}>
 						<Route path={'profile'} element={<ProfilePage />} />
-						<Route path={'main'} element={<MainPage />} />
 						<Route path={'question'} element={<QuestionPage />} />
 					</Route>
 					<Route path={'/*'} element={<div>NOT FOUND</div>} />

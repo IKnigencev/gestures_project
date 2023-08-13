@@ -17,7 +17,7 @@ enum Question {
 	Video,
 	Photo
 }
-const type = Question.Video
+const type = Question.Photo
 const choices = ['Мама', 'Папа', 'Брат', 'Сестра']
 
 const question = 'Покажите жестами в камеру слово "Мама".'
@@ -25,7 +25,9 @@ const question = 'Покажите жестами в камеру слово "М
 export const QuestionPage = () => {
 	return (
 		<Box className={styles.question}>
-			<ChevronLeft sx={{ fontSize: 32, cursor: 'pointer' }} />
+			<Button>
+				<ChevronLeft sx={{ fontSize: 32, cursor: 'pointer' }} />
+			</Button>
 			{type === Question.Photo && (
 				<div className={styles.question__container}>
 					<img src={defaultImage} className={styles.question__image} />
@@ -60,7 +62,9 @@ export const QuestionPage = () => {
 					<VideoComponent />
 				</div>
 			)}
-			<ChevronRight sx={{ fontSize: 32, cursor: 'pointer' }} />
+			<Button>
+				<ChevronRight sx={{ fontSize: 32, cursor: 'pointer' }} />
+			</Button>
 		</Box>
 	)
 }

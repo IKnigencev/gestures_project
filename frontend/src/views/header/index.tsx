@@ -1,35 +1,60 @@
 import styles from './header.module.css'
-import { Login, Home, Logout, Equalizer } from '@mui/icons-material'
-import { Container, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import React from 'react'
+import { Button, Drawer, Divider, Typography } from '@mui/material'
+import { Menu } from '@mui/icons-material/'
+import { useUserStore } from '../../store/user'
+import { useNavigate } from 'react-router-dom'
 
 export const HeaderComponent = () => {
+	const [isMenuOpened, setIsMenuOpened] = React.useState(false)
+	const { logout } = useUserStore()
+	const navigate = useNavigate()
+
 	return (
-		<header className={styles.header}>
-			<Container maxWidth={'lg'}>
-				<div className={styles.header__container}>
-					<div className={styles.header__navigation}>
-						<Link className={styles.link} to='/main'>
-							<Typography>Главная</Typography>
-							<Home sx={{ fontSize: 32, fill: 'white' }} color='action' />
-						</Link>
-						<Link className={styles.link} to='/statistic'>
-							<Typography>Статистика</Typography>
-							<Equalizer sx={{ fontSize: 32, fill: 'white' }} color='action' />
-						</Link>
-					</div>
-					<div className={styles.header__navigation_auth}>
-						<Link className={styles.link} to='/login'>
-							<Typography>Войти</Typography>
-							<Login sx={{ fontSize: 32, fill: 'white' }} color='action' />
-						</Link>
-						{/* <Link className={styles.navigation_logout} to='/login'>
-							<Typography>Выйти</Typography>
-							<Logout sx={{ fontSize: 32 }} color='action'></Logout>
-						</Link> */}
-					</div>
+		<>
+			<header className={styles.header}>
+				<div className={styles.header__navigation}>
+					<React.Fragment>
+						<Button
+							onClick={() => {
+								setIsMenuOpened(true)
+							}}
+						>
+							<Menu />
+						</Button>
+						<Drawer
+							anchor='left'
+							open={isMenuOpened}
+							onClose={() => {
+								setIsMenuOpened(false)
+							}}
+						>
+							<div className={styles.menu}>
+								<Button
+									onClick={() => {
+										navigate('/')
+									}}
+								>
+									Обучение
+								</Button>
+							</div>
+						</Drawer>
+					</React.Fragment>
 				</div>
-			</Container>
-		</header>
+				<Typography variant='h5' sx={{ color: '#2F78D2' }}>
+					Gestures
+				</Typography>
+				<div className={styles.header__navigation_auth}>
+					<Button
+						onClick={() => {
+							logout()
+						}}
+					>
+						Выйти
+					</Button>
+				</div>
+			</header>
+			<Divider />
+		</>
 	)
 }
