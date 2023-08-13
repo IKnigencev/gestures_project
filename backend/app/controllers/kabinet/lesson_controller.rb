@@ -17,7 +17,7 @@ class Kabinet::LessonController < KabinetController
   ##
   # Подгрузка данных, странца вопроса
   def show
-    if @step_lesson == "text"
+    if @step_lesson.type_question == "text"
       render json: equestion_data(:text), status: :ok
     else
       render json: equestion_data(:video), status: :ok
@@ -57,7 +57,7 @@ class Kabinet::LessonController < KabinetController
         prev_id: prev_step&.id,
         **@step_lesson.slice(:title, :question, :type_question)
       }
-      hash[:image_url] = @step_lesson.image.blob.url if type == :text
+      hash[:image_url] = Rails.application.routes.url_helpers.rails_blob_path(@step_lesson.image) if type == :text
       hash
     end
 
