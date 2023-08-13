@@ -9,10 +9,6 @@ class Kabinet::LessonController < KabinetController
   PATH_PYTHON = "/app/services/python_script/"
 
   before_action :validate_access
-  before_action do
-    ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
-  end
-  
 
   ##
   # Подгрузка данных, странца вопроса
